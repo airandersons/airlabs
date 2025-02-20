@@ -1,16 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
+from . models import Testimonials
+from . forms import TestimonialsForm
 
 def index(request):
+    testimonies = Testimonials.objects.all()
     template = loader.get_template('main_site/index.html')
-    context = {}
+    context = {'testimonies': testimonies}
     return HttpResponse(template.render(context, request))
 
 def about(request):
     return render(request, 'main_site/about.html', {})
 
-def service(request):
+def services(request):
     return render(request, 'main_site/service.html', {})
 
 def contact(request):
@@ -19,7 +22,7 @@ def contact(request):
 def blog(request):
     return render(request, 'main_site/blog.html', {})
 
-def project(request):
+def projects(request):
     return render(request, 'main_site/project.html', {})
 
 def team(request):
@@ -30,3 +33,13 @@ def notfound(request):
 
 def testimonial(request):
     return render(request, 'main_site/testimonial.html')
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = TestimonialsForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('main_app/index.html')  # Redirect to a success page
+    else:
+        form = TestimonialsForm()
+    return render(request, 'admin.html', {'form': form})

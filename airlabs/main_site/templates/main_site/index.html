@@ -70,8 +70,8 @@
                         <div class="navbar-nav ms-auto mx-xl-auto p-0">
                             <a href="{% url 'main_site:index' %}" class="nav-item nav-link active text-secondary">Home</a>
                             <a href="{% url 'main_site:about' %}" class="nav-item nav-link">About</a>
-                            <a href="{% url 'main_site:service' %}" class="nav-item nav-link">Services</a>
-                            <a href="{% url 'main_site:project' %}" class="nav-item nav-link">Projects</a>
+                            <a href="{% url 'main_site:services' %}" class="nav-item nav-link">Services</a>
+                            <a href="{% url 'main_site:projects' %}" class="nav-item nav-link">Projects</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu rounded">
@@ -228,7 +228,7 @@
                                     <i class="fa fa-code fa-7x mb-4 text-primary"></i>
                                     <h4 class="mb-3">Web Design</h4>
                                     <p class="mb-4">Our custom web design solutions are tailored to your brand, ensuring a seamless and engaging experience for your audience.</p>
-                                    <a href="{% url 'main_site:service' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
+                                    <a href="{% url 'main_site:services' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -240,7 +240,7 @@
                                     <i class="fa fa-file-code fa-7x mb-4 text-primary"></i>
                                     <h4 class="mb-3">Software Development</h4>
                                     <p class="mb-4">Whether you need a robust application, a streamlined system, or a cutting-edge platform, our team of experts delivers innovative software that drives efficiency, enhances productivity, and fuels growth.</p>
-                                    <a href="{% url 'main_site:service' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
+                                    <a href="{% url 'main_site:services' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
                                     <i class="fa fa-external-link-alt fa-7x mb-4 text-primary"></i>
                                     <h4 class="mb-3">MobileApp Development</h4>
                                     <p class="mb-4">Let us help you bring your ideas to life with mobile solutions that work seamlessly across iOS and Android platforms, ensuring your app is ready to elevate your business.</p>
-                                    <a href="{% url 'main_site:service' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
+                                    <a href="{% url 'main_site:services' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -264,7 +264,7 @@
                                     <i class="fas fa-user-secret fa-7x mb-4 text-primary"></i>
                                     <h4 class="mb-3">Web Security</h4>
                                     <p class="mb-4">Our comprehensive web security solutions safeguard your data, protect your business, and ensure your peace of mind.</p>
-                                    <a href="{% url 'main_site:service' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
+                                    <a href="{% url 'main_site:services' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
                                 </div>
                                 
                             </div>
@@ -277,7 +277,7 @@
                                     <i class="fa fa-envelope-open fa-7x mb-4 text-primary"></i>
                                     <h4 class="mb-3">UI/UX</h4>
                                     <p class="mb-4">We focus on delivering intuitive layouts that not only look great but also improve usability and customer satisfaction.</p>
-                                    <a href="{% url 'main_site:service' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
+                                    <a href="{% url 'main_site:services' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -289,7 +289,7 @@
                                     <i class="fas fa-laptop fa-7x mb-4 text-primary"></i>
                                     <h4 class="mb-3">Content Creation</h4>
                                     <p class="mb-4">We provide high-quality, engaging, and SEO-friendly content tailored to your business needs.</p>
-                                    <a href="{% url 'main_site:service' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
+                                    <a href="{% url 'main_site:services' %}" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Read More</a>
                                 </div>
                             </div>
                         </div>
@@ -596,14 +596,15 @@
                     <h1>Our Client Saying!</h1>
                 </div>
                 <div class="owl-carousel testimonial-carousel wow fadeIn" data-wow-delay=".5s">
+                    {% for testimony in testimonies %}
                     <div class="testimonial-item border p-4">
                         <div class="d-flex align-items-center">
                             <div class="">
-                                <img src="{% static 'main_site/img/testimonial-1.jpg' %}" alt="">
+                                <img src="{{ testimony.image.url }}" alt="">
                             </div>
                             <div class="ms-4">
-                                <h4 class="text-secondary">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
+                                <h4 class="text-secondary">{{testimony.name}}</h4>
+                                <p class="m-0 pb-3">{{testimony.profession}}</p>
                                 <div class="d-flex pe-5">
                                     <i class="fas fa-star me-1 text-primary"></i>
                                     <i class="fas fa-star me-1 text-primary"></i>
@@ -614,72 +615,10 @@
                             </div>
                         </div>
                         <div class="border-top mt-4 pt-3">
-                            <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam mi.</p>
+                            <p class="mb-0">{{testimony.comment}}</p>
                         </div>
                     </div>
-                    <div class="testimonial-item border p-4">
-                        <div class=" d-flex align-items-center">
-                            <div class="">
-                                <img src="{% static 'main_site/img/testimonial-2.jpg' %}" alt="">
-                            </div>
-                            <div class="ms-4">
-                                <h4 class="text-secondary">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
-                                <div class="d-flex pe-5">
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top mt-4 pt-3">
-                            <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam mi.</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-item border p-4">
-                        <div class=" d-flex align-items-center">
-                            <div class="">
-                                <img src="{% static 'main_site/img/testimonial-3.jpg' %}" alt="">
-                            </div>
-                            <div class="ms-4">
-                                <h4 class="text-secondary">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
-                                <div class="d-flex pe-5">
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top mt-4 pt-3">
-                            <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam mi.</p>
-                        </div>
-                    </div>
-                    <div class="testimonial-item border p-4">
-                        <div class=" d-flex align-items-center">
-                            <div class="">
-                                <img src="{% static 'main_site/img/testimonial-4.jpg' %}" alt="">
-                            </div>
-                            <div class="ms-4">
-                                <h4 class="text-secondary">Client Name</h4>
-                                <p class="m-0 pb-3">Profession</p>
-                                <div class="d-flex pe-5">
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                    <i class="fas fa-star me-1 text-primary"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border-top mt-4 pt-3">
-                            <p class="mb-0">Lorem ipsum dolor sit amet elit. Sed efficitur quis purus ut interdum aliquam dolor eget urna. Nam volutpat libero sit amet leo cursus, ac viverra eros morbi quis quam mi.</p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -693,7 +632,7 @@
                 <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
                     <h5 class="text-primary">Get In Touch</h5>
                     <h1 class="mb-3">Contact for any query</h1>
-                    <p class="mb-2">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+                    <p class="mb-2">Have a question, idea, or just want to say hello? We’d love to hear from you! Drop us a message using the form below, or reach out directly via email or phone. Let’s connect and create something amazing together! <a href="{% url 'main_site:contact' %}"></a>Contact Us</p>
                 </div>
                 <div class="contact-detail position-relative p-5">
                     <div class="row g-5 mb-5 justify-content-center">
@@ -704,7 +643,7 @@
                                 </div>
                                 <div class="ms-3">
                                     <h4 class="text-primary">Address</h4>
-                                    <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" class="h5">23 rank Str, NY</a>
+                                    <a href="https://goo.gl/maps/Zd4BCynmTb98ivUJ6" target="_blank" class="h5">Bweyogerere, Kirinya</a>
                                 </div>
                             </div>
                         </div>
@@ -715,7 +654,7 @@
                                 </div>
                                 <div class="ms-3">
                                     <h4 class="text-primary">Call Us</h4>
-                                    <a class="h5" href="tel:+256702137438 target="_blank">+256 702137438</a>
+                                    <a class="h5" href="tel:+256702137438" target="_blank">+256 702137438</a>
                                 </div>
                             </div>
                         </div>
@@ -769,9 +708,10 @@
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
                         <a href="{% url 'main_site:index' %}">
-                            <h1 class="text-white fw-bold d-block">High<span class="text-secondary">Tech</span> </h1>
+                            <h1 class="text-white fw-bold d-block">Air<span class="text-secondary">Labs</span> </h1>
                         </a>
-                        <p class="mt-4 text-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta facere delectus qui placeat inventore consectetur repellendus optio debitis.</p>
+                        <p class="mt-4 text-light">Let’s Create Something Great Together!
+                            Ready to take the next step? Reach out today and let’s turn your ideas into reality.</p>
                         <div class="d-flex hightech-link">
                             <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i class="fab fa-facebook-f text-primary"></i></a>
                             <a href="" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i class="fab fa-twitter text-primary"></i></a>
@@ -780,13 +720,13 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <a href="#" class="h3 text-secondary">Short Link</a>
+                        <a href="#" class="h3 text-secondary">Quick Links</a>
                         <div class="mt-4 d-flex flex-column short-link">
-                            <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>About us</a>
-                            <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Contact us</a>
-                            <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Our Services</a>
-                            <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Our Projects</a>
-                            <a href="" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Latest Blog</a>
+                            <a href="{% url 'main_site:about' %}" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>About us</a>
+                            <a href="{% url 'main_site:contact' %}" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Contact us</a>
+                            <a href="{% url 'main_site:services' %}" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Our Services</a>
+                            <a href="{% url 'main_site:projects' %}" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Our Projects</a>
+                            <a href="{% url 'main_site:blog' %}" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Latest Blog</a>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
@@ -800,22 +740,22 @@
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
-                        <a href="#" class="h3 text-secondary">Contact Us</a>
+                        <a href="{% url 'main_site:contact' %}" class="h3 text-secondary">Contact Us</a>
                         <div class="text-white mt-4 d-flex flex-column contact-link">
-                            <a href="#" class="pb-3 text-light border-bottom border-primary"><i class="fas fa-map-marker-alt text-secondary me-2"></i> 123 Street, New York, USA</a>
-                            <a href="#" class="py-3 text-light border-bottom border-primary"><i class="fas fa-phone-alt text-secondary me-2"></i> +123 456 7890</a>
-                            <a href="#" class="py-3 text-light border-bottom border-primary"><i class="fas fa-envelope text-secondary me-2"></i> info@exmple.con</a>
+                            <a href="#" class="pb-3 text-light border-bottom border-primary"><i class="fas fa-map-marker-alt text-secondary me-2"></i> Bweyogerere, Kirinya</a>
+                            <a href="#" class="py-3 text-light border-bottom border-primary"><i class="fas fa-phone-alt text-secondary me-2"></i> +256 702137438</a>
+                            <a href="#" class="py-3 text-light border-bottom border-primary"><i class="fas fa-envelope text-secondary me-2"></i>info@airlabsug.net</a>
                         </div>
                     </div>
                 </div>
                 <hr class="text-light mt-5 mb-4">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start">
-                        <span class="text-light"><a href="#" class="text-secondary"><i class="fas fa-copyright text-secondary me-2"></i>Your Site Name</a>, All right reserved.</span>
+                        <span class="text-light"><a href="#" class="text-secondary"><i class="fas fa-copyright text-secondary me-2"></i>AirLabs-UG</a>, All right reserved.</span>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        <span class="text-light">Designed By<a href="airlabs.epizy.com" class="text-secondary">AirLabs-UG</a></span>
+                        <span class="text-light">Designed By <a href="airlabs.epizy.com" class="text-secondary">AirLabs-UG</a></span>
                     </div>
                 </div>
             </div>
