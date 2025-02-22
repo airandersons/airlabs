@@ -35,8 +35,10 @@ def notfound(request):
 def testimonial(request):
     return render(request, 'main_site/testimonial.html')
 
-def blog_detail(request):
-    return render(request, 'main_site/blog_detail.html')
+def blog_detail(request, id):
+    post = Post.objects.get(id=id)
+    context = {'post': post}
+    return render(request, 'main_site/blog_detail.html', post)
 
 def upload_image(request):
     if request.method == 'POST':
