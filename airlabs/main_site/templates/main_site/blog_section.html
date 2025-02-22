@@ -13,7 +13,7 @@
                     <span class="position-absolute px-4 py-3 bg-primary text-white rounded" style="top: -28px; right: 20px;">{{ post.post_category.name }}</span>
                     <div class="blog-btn d-flex justify-content-between position-relative px-3" style="margin-top: -75px;">
                         <div class="blog-icon btn btn-secondary px-3 rounded-pill my-auto">
-                            <a href="{% url 'main_site:blog_detail' %}" class="btn text-white ">Read More</a>
+                            <a href="{% url 'main_site:blog_detail' post_id=post.id %}" class="btn text-white ">Read More</a>
                         </div>
                         <div class="blog-btn-icon btn btn-secondary px-4 py-3 rounded-pill ">
                             <div class="blog-icon-1">
@@ -33,7 +33,7 @@
                         <p class="py-2">{{ post.short_detail }}</p>
                     </div>
                     <div class="blog-coments d-flex justify-content-between px-4 py-2 border bg-primary rounded-bottom">
-                        <a href="" class="text-white"><small><i class="fas fa-share me-2 text-secondary"></i>5324 Views</small></a>
+                        <a href="" class="text-white"><small><i class="fas fa-eye me-2 text-secondary"></i>5324 Views</small></a>
                         <a href="" class="text-white"><small><i class="fa fa-comments me-2 text-secondary"></i>5 Comments</small></a>
                     </div>
                 </div>
