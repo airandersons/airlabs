@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from django.template import loader
-from . models import Testimonials
+from . models import Testimonials, Post, PostCategory, PostAuthor, PostComments, Blog
 from . forms import TestimonialsForm
 
 def index(request):
     testimonies = Testimonials.objects.all()
+    posts = Post.objects.select_related('post_author', 'blog','post_category').order_by('-post_date')[:3]
     template = loader.get_template('main_site/index.html')
-    context = {'testimonies': testimonies}
+    context = {'testimonies': testimonies, 'posts': posts}
     return HttpResponse(template.render(context, request))
 
 def about(request):
@@ -33,6 +34,9 @@ def notfound(request):
 
 def testimonial(request):
     return render(request, 'main_site/testimonial.html')
+
+def blog_detail(request):
+    return render(request, 'main_site/blog_detail.html')
 
 def upload_image(request):
     if request.method == 'POST':
