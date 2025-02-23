@@ -1,0 +1,26 @@
+{% load static %}
+<!-- About Start -->
+<div class="container-fluid py-5 my-5">
+    <div class="container pt-5">
+        <div class="row g-5">
+            <div class="col-lg-5 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".3s">
+                <div class="h-100 position-relative">
+                    <img src="{% static 'airlabs/img/about-1.jpg' %}" class="img-fluid w-75 rounded" alt="" style="margin-bottom: 25%;">
+                    <div class="position-absolute w-75" style="top: 25%; left: 25%;">
+                        <img src="{% static 'airlabs/img/about-2.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".5s">
+                <h5 class="text-primary">About Us</h5>
+                <h1 class="mb-4">About AirLabs-UG And It's Innovative IT Solutions</h1>
+                <p>
+                    Welcome to AirLabs-UG, where innovation meets excellence. We are a forward-thinking IT solutions agency dedicated to helping businesses thrive in the digital age. With a passion for technology and a commitment to delivering results, we specialize in crafting custom websites, scalable software, and transformative digital experiences that drive growth and success.
+                </p>
+                <p class="mb-4">At AirLabs-UG, we believe that technology should empower businesses, not complicate them. Our team of skilled developers, designers, and strategists work together to create solutions that are not only functional but also intuitive, visually stunning, and tailored to your unique needs. Whether you're a startup looking to make your mark or an established business aiming to scale, we're here to turn your vision into reality.</p>
+                <a href="{% url 'airlabs:about' %}" class="btn btn-secondary rounded-pill px-5 py-3 text-white">More Details</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
