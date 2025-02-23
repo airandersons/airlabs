@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'airlabs.urls'
+ROOT_URLCONF = 'airlabs_website.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'airlabs.wsgi.application'
+WSGI_APPLICATION = 'airlabs_website.wsgi.application'
 
 
 # Database
