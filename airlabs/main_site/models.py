@@ -37,8 +37,14 @@ class Post(models.Model):
         return f"{self.title} by {self.post_author}"
 
 class PostComments(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     author_name = models.CharField(max_length=50)
-    author_image = models.ImageField(upload_to='images/')
+    author_email = models.EmailField(max_length=320)
+    author_image = models.ImageField(upload_to='images/', blank=True, null=True)
     comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Comment by {self.author_name} on {self.post.title}"
 

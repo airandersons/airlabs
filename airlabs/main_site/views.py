@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 from . models import Testimonials, Post, PostCategory, PostAuthor, PostComments, Blog
-from . forms import TestimonialsForm
+from . forms import TestimonialsForm, PostCommentForm
 
 def index(request):
     testimonies = Testimonials.objects.all()
@@ -21,7 +21,10 @@ def contact(request):
     return render(request, 'main_site/contact.html', {})
 
 def blog(request):
-    return render(request, 'main_site/blog.html', {})
+    posts = Post.objects.select_related('post_author', 'blog','post_category').order_by('-post_date')[:3]
+    template = loader.get_template('main_site/blog.html')
+    context = {'posts': posts}
+    return HttpResponse(template.render(context, request))
 
 def projects(request):
     return render(request, 'main_site/project.html', {})
@@ -36,8 +39,19 @@ def testimonial(request):
     return render(request, 'main_site/testimonial.html')
 
 def blog_detail(request, post_id):
-    post = Post.objects.get(id=post_id)
-    context = {'post': post}
+    post = get_object_or_404(Post, id=post_id)
+    comments = post.comments.all()[:2] # Get comments related to post
+    form = PostCommentForm()
+    context = {'post': post, 'comments': comments, 'form': form}
+
+    if request.method == 'POST':
+        form = PostCommentForm(request.POST, request.FILES)
+        if form.is_valid():
+            comment = form.save(commit=False) # Don't save yet
+            comment.post = post # Assign post to the comment
+            comment.save()
+            return redirect('main_site/blog_detail', post_id=post.id)
+        
     return render(request, 'main_site/blog_detail.html', context)
 
 def upload_image(request):
